@@ -1,0 +1,34 @@
+services:
+  namenode:
+    charm: local:trusty/apache-bigtop-namenode
+    num_units: 1
+    annotations:
+      gui-x: "600"
+      gui-y: "350"
+    constraints: mem=7G
+  resourcemanager:
+    charm: local:trusty/apache-bigtop-resourcemanager
+    num_units: 1
+    annotations:
+      gui-x: "600"
+      gui-y: "100"
+    constraints: mem=7G
+  datanode:
+    charm: local:trusty/apache-bigtop-datanode
+    num_units: 3
+    annotations:
+      gui-x: "250"
+      gui-y: "350"
+    constraints: mem=7G
+  nodemanager:
+    charm: local:trusty/apache-bigtop-nodemanager
+    num_units: 3
+    annotations:
+      gui-x: "250"
+      gui-y: "100"
+    constraints: mem=7G
+series: trusty
+relations:
+  - [resourcemanager, namenode]
+  - [namenode, datanode]
+  - [resourcemanager, nodemanager]
