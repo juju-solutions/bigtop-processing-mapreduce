@@ -20,11 +20,10 @@ class TestBundle(unittest.TestCase):
         bundle = yaml.safe_load(bun)
         cls.d.load(bundle)
         cls.d.setup(timeout=1800)
-        cls.d.sentry.wait_for_messages({'plugin': 'Ready (HDFS & YARN)'}, timeout=1800)
+        cls.d.sentry.wait_for_messages({'slave': 'ready (datanode & nodemanager)'}, timeout=1800)
         cls.hdfs = cls.d.sentry['namenode'][0]
         cls.yarn = cls.d.sentry['resourcemanager'][0]
         cls.slave = cls.d.sentry['slave'][0]
-        cls.client = cls.d.sentry['client'][0]
 
     def test_components(self):
         """
@@ -35,31 +34,25 @@ class TestBundle(unittest.TestCase):
         slave, retcode = self.slave.run("pgrep -a java")
         client, retcode = self.client.run("pgrep -a java")
 
-        # .NameNode needs the . to differentiate it from SecondaryNameNode
-        assert '.NameNode' in hdfs, "NameNode not started"
-        assert '.NameNode' not in yarn, "NameNode should not be running on resourcemanager"
-        assert '.NameNode' not in slave, "NameNode should not be running on slave"
-        assert '.NameNode' not in client, "NameNode should not be running on client"
+        assert 'NameNode' in hdfs, "NameNode not started"
+        assert 'NameNode' not in yarn, "NameNode should not be running on resourcemanager"
+        assert 'NameNode' not in slave, "NameNode should not be running on slave"
 
         assert 'ResourceManager' in yarn, "ResourceManager not started"
         assert 'ResourceManager' not in hdfs, "ResourceManager should not be running on namenode"
         assert 'ResourceManager' not in slave, "ResourceManager should not be running on slave"
-        assert 'ResourceManager' not in client, "ResourceManager should not be running on client"
 
         assert 'JobHistoryServer' in yarn, "JobHistoryServer not started"
         assert 'JobHistoryServer' not in hdfs, "JobHistoryServer should not be running on namenode"
         assert 'JobHistoryServer' not in slave, "JobHistoryServer should not be running on slave"
-        assert 'JobHistoryServer' not in client, "JobHistoryServer should not be running on client"
 
         assert 'NodeManager' in slave, "NodeManager not started"
         assert 'NodeManager' not in yarn, "NodeManager should not be running on resourcemanager"
         assert 'NodeManager' not in hdfs, "NodeManager should not be running on namenode"
-        assert 'NodeManager' not in client, "NodeManager should not be running on client"
 
         assert 'DataNode' in slave, "DataServer not started"
         assert 'DataNode' not in yarn, "DataNode should not be running on resourcemanager"
         assert 'DataNode' not in hdfs, "DataNode should not be running on namenode"
-        assert 'DataNode' not in client, "DataNode should not be running on client"
 
     def test_hdfs_dir(self):
         """
@@ -88,8 +81,8 @@ class TestBundle(unittest.TestCase):
 
         NB: These are order-dependent, so must be done as part of a single test case.
         """
-        jar_file = '/usr/lib/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar'
-        tests_jar_file = '/usr/lib/hadoop/share/hadoop/common/hadoop-common-*-tests.jar'
+        jar_file = '/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-*.jar'
+        tests_jar_file = '/usr/lib/hadoop/hadoop-common-*-tests.jar'
 
         test_steps = [
             ('teragen',      "su ubuntu -c 'hadoop jar {} teragen  10000 /user/ubuntu/teragenout'".format(jar_file)),
