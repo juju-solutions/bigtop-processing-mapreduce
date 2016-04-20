@@ -19,6 +19,7 @@ include:
   * NameNode (HDFS)
   * ResourceManager (Yarn)
   * Slaves (DataNode and NodeManager)
+  * Plugin (Subordinate Bigtop Gateway)
 
 Deploying this bundle gives you a fully configured and connected Apache Bigtop
 cluster on any supported cloud, which can be easily scaled to meet workload
