@@ -3,34 +3,45 @@ services:
     charm: local:trusty/apache-bigtop-namenode
     num_units: 1
     annotations:
-      gui-x: "600"
-      gui-y: "350"
+      gui-x: "500"
+      gui-y: "800"
     constraints: mem=7G
   resourcemanager:
     charm: local:trusty/apache-bigtop-resourcemanager
     num_units: 1
     annotations:
-      gui-x: "600"
-      gui-y: "100"
+      gui-x: "500"
+      gui-y: "0"
     constraints: mem=7G
   slave:
     charm: local:trusty/apache-bigtop-slave
     num_units: 3
     annotations:
-      gui-x: "250"
-      gui-y: "225"
+      gui-x: "0"
+      gui-y: "400"
     constraints: mem=7G
   plugin:
     charm: local:trusty/apache-bigtop-plugin
     annotations:
-      gui-x: "950"
-      gui-y: "225"
+      gui-x: "1000"
+      gui-y: "425"
   client:
-    charm: local:trusty/hadoop-client
+    charm: cs:trusty/hadoop-client
     num_units: 1
     annotations:
-      gui-x: "1300"
-      gui-y: "225"
+      gui-x: "1250"
+      gui-y: "400"
+  ganglia-node:
+    charm: cs:trusty/ganglia-node
+    annotations:
+      gui-x: "250"
+      gui-y: "425"
+  ganglia:
+    charm: cs:trusty/ganglia
+    num_units: 1
+    annotations:
+      gui-x: "750"
+      gui-y: "400"
 series: trusty
 relations:
   - [resourcemanager, namenode]
@@ -39,3 +50,7 @@ relations:
   - [plugin, namenode]
   - [plugin, resourcemanager]
   - [client, plugin]
+  - ["ganglia:node", ganglia-node]
+  - [ganglia-node, namenode]
+  - [ganglia-node, resourcemanager]
+  - [ganglia-node, slave]
