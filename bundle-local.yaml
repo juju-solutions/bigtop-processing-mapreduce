@@ -1,6 +1,6 @@
 services:
   namenode:
-    charm: local:trusty/apache-bigtop-namenode
+    charm: ~/charms/trusty/apache-bigtop-namenode
     num_units: 1
     annotations:
       gui-x: "500"
@@ -24,7 +24,7 @@ services:
     charm: local:trusty/apache-bigtop-plugin
     annotations:
       gui-x: "1000"
-      gui-y: "425"
+      gui-y: "400"
   client:
     charm: cs:trusty/hadoop-client
     num_units: 1
@@ -35,7 +35,7 @@ services:
     charm: cs:trusty/ganglia-node
     annotations:
       gui-x: "250"
-      gui-y: "425"
+      gui-y: "400"
   ganglia:
     charm: cs:trusty/ganglia
     num_units: 1

@@ -1,43 +1,43 @@
 services:
   namenode:
-    charm: cs:~bigdata-dev/trusty/apache-bigtop-namenode
+    charm: cs:~bigdata-dev/trusty/apache-bigtop-namenode-6
     num_units: 1
     annotations:
       gui-x: "500"
       gui-y: "800"
     constraints: mem=7G
   resourcemanager:
-    charm: cs:~bigdata-dev/trusty/apache-bigtop-resourcemanager
+    charm: cs:~bigdata-dev/trusty/apache-bigtop-resourcemanager-5
     num_units: 1
     annotations:
       gui-x: "500"
       gui-y: "0"
     constraints: mem=7G
   slave:
-    charm: cs:~bigdata-dev/trusty/apache-bigtop-slave
+    charm: cs:~bigdata-dev/trusty/apache-bigtop-slave-4
     num_units: 3
     annotations:
       gui-x: "0"
       gui-y: "400"
     constraints: mem=7G
   plugin:
-    charm: cs:~bigdata-dev/trusty/apache-bigtop-plugin
+    charm: cs:~bigdata-dev/trusty/apache-bigtop-plugin-2
     annotations:
       gui-x: "1000"
-      gui-y: "425"
+      gui-y: "400"
   client:
-    charm: cs:trusty/hadoop-client
+    charm: cs:trusty/hadoop-client-1
     num_units: 1
     annotations:
       gui-x: "1250"
       gui-y: "400"
   ganglia-node:
-    charm: cs:trusty/ganglia-node
+    charm: cs:trusty/ganglia-node-2
     annotations:
       gui-x: "250"
-      gui-y: "425"
+      gui-y: "400"
   ganglia:
-    charm: cs:trusty/ganglia
+    charm: cs:trusty/ganglia-2
     num_units: 1
     annotations:
       gui-x: "750"
