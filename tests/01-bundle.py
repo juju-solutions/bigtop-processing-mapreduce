@@ -19,8 +19,8 @@ class TestBundle(unittest.TestCase):
             bun = f.read()
         bundle = yaml.safe_load(bun)
         cls.d.load(bundle)
-        cls.d.setup(timeout=1800)
-        cls.d.sentry.wait_for_messages({'client': 'Ready'}, timeout=1800)
+        cls.d.setup(timeout=3600)
+        cls.d.sentry.wait_for_messages({'client': 'Ready'}, timeout=3600)
         cls.hdfs = cls.d.sentry['namenode'][0]
         cls.yarn = cls.d.sentry['resourcemanager'][0]
         cls.slave = cls.d.sentry['slave'][0]
