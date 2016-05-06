@@ -1,6 +1,6 @@
 services:
   namenode:
-    charm: ~/charms/trusty/apache-bigtop-namenode
+    charm: local:trusty/apache-bigtop-namenode
     num_units: 1
     annotations:
       gui-x: "500"
