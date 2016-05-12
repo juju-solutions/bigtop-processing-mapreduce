@@ -1,4 +1,12 @@
 services:
+  openjdk:
+    charm: local:trusty/openjdk
+    annotations:
+      gui-x: "500"
+      gui-y: "400"
+    options:
+      java-type: "jdk"
+      java-major: "8"
   namenode:
     charm: local:trusty/apache-bigtop-namenode
     num_units: 1
@@ -26,7 +34,7 @@ services:
       gui-x: "1000"
       gui-y: "400"
   client:
-    charm: cs:trusty/hadoop-client
+    charm: local:trusty/hadoop-client
     num_units: 1
     annotations:
       gui-x: "1250"
@@ -44,6 +52,10 @@ services:
       gui-y: "400"
 series: trusty
 relations:
+  - [openjdk, namenode]
+  - [openjdk, resourcemanager]
+  - [openjdk, slave]
+  - [openjdk, client]
   - [resourcemanager, namenode]
   - [namenode, slave]
   - [resourcemanager, slave]
